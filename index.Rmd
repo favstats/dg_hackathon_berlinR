@@ -1,0 +1,477 @@
+---
+title: "<br>Hacking Germany's Official Statistics with datenguideR"
+subtitle: ""
+author: '<br>Lisa Hehnke <br>  <a href="https://twitter.com/dataplanes"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@dataplanes</a> <br>Fabio Votta <br>  <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@favstats</a> <br>Vroni Grupp <br>  <a href="https://twitter.com/vgeodata"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@vgeodata</a> <br><br> Slides available at: <br><a href="https://dg_berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp; dg_berlinR.netlify.com</a> <br><br>2020-02-05'
+output: 
+  xaringan::moon_reader:
+    df_print: paged
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%<br>"
+    includes:
+      in_header: header.html      
+    css: xaringan-themer.css
+---
+
+<style>
+.onehundredtwenty {
+  font-size: 120%;
+   }
+
+<style>
+.ninety {
+  font-size: 90%;
+   }
+
+.eightyfive {
+  font-size: 85%;
+   }
+   
+.eighty {
+  font-size: 80%;
+   }
+   
+.seventyfive {
+  font-size: 75%;
+   }
+   
+.seventy {
+  font-size: 70%;
+   }
+</style>
+
+
+
+```{r, include = F}
+pacman::p_load(tidyverse, datenguideR, knitr, testthat, devtools, usethis)
+
+#Default Options - kann bei Gebrauch geändert werden
+knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
+
+
+```
+
+
+.pull-left[
+
+
+### How to `datenguideR`
+
+The `rOpenSci Package guide` states that:
+
+]
+
+
+.pull-right[
+
+
+```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
+knitr::include_graphics("images/logo3.png")
+
+
+
+```
+
+]
+
+> Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+
+
+So in the best case scenario you come up with a naming scheme in the following style:
+
++ `object_verb`
+
+This scheme 
+
++ helps avoid namespace conflicts with packages that may have similar verbs
++ makes code readable and easy to auto-complete
+
+In `datenguideR` all functions start with `dg_*`, for example `dg_call`, `dg_descriptions` etc.
+
+
+
+---
+
+.pull-left[
+
+
+### How to `datenguideR`
+
+First install `datenguideR` from GitHub (not yet on CRAN)
+
+]
+
+
+.pull-right[
+
+
+```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
+knitr::include_graphics("images/logo3.png")
+```
+
+]
+
+
+```{r, eval = F}
+devtools::install_github("CorrelAid/datenguideR")
+```
+
+--
+
+![](images/its_a_trap.png)
+---
+
+
+### Metadata with `dg_descriptions`
+
+Get all available meta data on statistics, substatistics, and parameters:
+
+```{r, paged.print = F}
+datenguideR::dg_descriptions
+
+
+```
+
+
+
+---
+
+
+
+
+### Metadata with `dg_descriptions`
+
+Variables are hierarchically organized on **three levels**: `stat`, `substat` and `param`.  A `stat` may or may not have any `substats` and a `substat` may or not have any `params`. It completely depends on the variable.
+
+```{r, eval  = F}
+
+stat level                  
+ ¦--stat_name
+ ¦--stat_description
+ ¦--stat_description_en
+ ¦--stat_description_full
+ ¦--stat_description_full_en
+ ¦
+ °--substat level
+     ¦--substat_name
+     ¦--substat_description
+     ¦--substat_description_en 
+     ¦  
+     °--param level       
+         ¦--param_name  
+         ¦--param_description
+         ¦--param_description_en
+```
+
+
+
+---
+
+
+class: center, middle, inverse
+
+## Confused?
+
+![](https://media3.giphy.com/media/1oJLpejP9jEvWQlZj4/giphy.gif)
+
+### Let's consider an example 
+
+---
+
+
+### Metadata with `dg_descriptions`
+
+Let's consider the example of population size (`BEVSTD`)
+
+```{r, eval  = F}
+
+stat level                  
+ ¦--stat_name
+ ¦--stat_description
+ ¦--stat_description_en
+ ¦--stat_description_full
+ ¦--stat_description_full_en
+ ¦
+ °--substat level
+     ¦--substat_name
+     ¦--substat_description
+     ¦--substat_description_en 
+     ¦  
+     °--param level       
+         ¦--param_name  
+         ¦--param_description
+         ¦--param_description_en
+```
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+Let's consider the example of population size (`BEVSTD`)
+
+```{r, eval  = F}
+
+stat level                  
+ ¦--stat_name: BEVSTD
+ ¦--stat_description: Bevölkerungsstand
+ ¦--stat_description_en: Population Size	
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
+ ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75
+     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦  
+     °--param level       
+         ¦--param_name: ALT018
+         ¦--param_description: 18 bis unter 19 Jahre	
+         ¦--param_description_en: 18 to under 19 Years
+```
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+First, there is the `stat_*` level.
+
+```{r, eval  = F}
+
+stat level
+ ¦--stat_name: BEVSTD #<<
+ ¦--stat_description: Bevölkerungsstand #<<
+ ¦--stat_description_en: Population Size	#<<
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. #<<
+ ¦--stat_description_full_en: Population Size from GENESIS.. #<<
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75
+     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦  
+     °--param level       
+         ¦--param_name: ALT018
+         ¦--param_description: 18 bis unter 19 Jahre	
+         ¦--param_description_en: 18 to under 19 Years
+```
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+The variable `stat_description_full_en` includes a long English description of a given statistic (written up in Markdown):
+
+--
+
+```{r, eval  = T, results='asis', echo=F}
+
+dg_descriptions %>% 
+  filter(stat_name == "BEVSTD") %>% 
+  slice(1) %>% 
+  pull(stat_description_full_en) %>%
+  cat()
+
+```
+
+
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+Next, there is the `substat_*` level. In the example, this substatistic holds all values for the population size from ages under 1 to 90.
+
+```{r, eval  = F}
+
+stat level                  
+ ¦--stat_name: BEVSTD
+ ¦--stat_description: Bevölkerungsstand
+ ¦--stat_description_en: Population Size	
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
+ ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75 #<<
+     ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen) #<<
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups) #<<
+     ¦  
+     °--param level       
+         ¦--param_name: ALT018
+         ¦--param_description: 18 bis unter 19 Jahre	
+         ¦--param_description_en: 18 to under 19 Years
+```
+
+Other possible examples of a substat for population size is the statistic split up by gender (`GES`) or nationality (`NAT`).
+
+---
+
+### Metadata with `dg_descriptions`
+
+Next, there is the `param_*` level. In the example, you can use this parameter to query individual age groups (for example 18 to 19).
+
+
+```{r, eval  = F}
+
+stat level                  
+ ¦--stat_name: BEVSTD
+ ¦--stat_description: Bevölkerungsstand
+ ¦--stat_description_en: Population Size	
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
+ ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75
+     ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen)
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)
+     ¦  
+     °--param level       
+        ¦--param_name: ALT018}} #<<
+        ¦--param_description: 18 bis unter 19 Jahre	#<<
+        ¦--param_description_en: 18 to under 19 Years}} #<<
+```
+
+
+---
+
+
+class: center, middle, inverse
+
+## You might be thinking:
+
+![](https://media1.tenor.com/images/4ef9869087411906c87241c3b985941c/tenor.gif?itemid=7666363)
+
+### Don't worry, that's why we build `dg_search()`
+
+
+
+
+---
+
+### How to use `dg_search`
+
+`dg_search` matches your string with any variable in `dg_descriptions`, returning only rows with those matches.
+
+Looking for variables where the string *"vote"* appears somewhere in the documentation:
+
+```{r, eval = F, paged.print = F}
+dg_search("vote") 
+```
+
+```{r, echo = F, paged.print = F}
+dg_search("vote") %>% 
+  ## only select english translations
+  dplyr::select(stat_name, dplyr::contains("_en"))
+```
+
+
+---
+
+### How to `datenguideR`
+
+
+Get IDs of all available NUTS-1 regions:
+
+```{r, paged.print = TRUE}
+datenguideR::dg_regions %>%
+  dplyr::filter(level == "nuts1") 
+```
+
+
+---
+
+
+class: center, middle, inverse
+
+# `dg_call`
+
+
+![](https://shityoucanafford.com/wp-content/uploads/2017/11/horse-head-mask-office-min.jpg)
+
+## The main work horse of `datenguideR`
+
+
+
+
+
+---
+
+### How to use `dg_call`
+
+Main arguments of `dg_call`
+
+```{r, paged.print = F, results='asis', echo = F}
+stats_vars <- c("region_id",
+"stat_name",
+"substat_name",
+"parameter",
+"year",
+"nuts_nr",
+"lau_nr",
+"full_descriptions",
+"long_format")
+
+desc <- c("The ID of a specific region", 
+  "Main statistic",
+  "Sub-statistic<br>Defaults to all", 
+  "Parameter<br>Defaults to all",
+  "Year(s)", 
+  "NUTS level", 
+  "LAU level",
+  "Full descriptions<br>Defaults to `FALSE`",
+  "Long format<br>Defaults to `FALSE`.")
+
+
+tibble::tibble(arguments = stats_vars, description = desc) %>% htmlTable::htmlTable(rnames = F)
+```
+
+
+
+---
+
+### How to use `dg_call`
+
+
+ - **Statistic:** AI0506 *(Voter Turnout, Federal Election)*
+
+```{r, paged.print = T, results='asis'}
+dg_call(region_id = "11",
+        year = 2002,
+        stat_name = "AI0506") 
+```
+
+
+---
+
+class: center, middle, inverse
+
+## It's time to type some R code
+
+![](https://media1.tenor.com/images/72bf7922ac0b07b2f7f8f630e4ae01d2/tenor.gif?itemid=11364811)
+
+### Let's get to the Workshop Part
+
+
+
+
+
+
+
+
+---
+
+
+class: center, middle, inverse
+
+### Thank you for listening
+
+![](https://media1.tenor.com/images/da0f7d5d93faa11dfc36db1e6c6fdf2a/tenor.gif?itemid=6159389)
+
+
+

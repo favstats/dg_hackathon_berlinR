@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title> Hacking Germany’s Official Statistics with datenguideR</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Lisa Hehnke     @dataplanes  Fabio Votta     @favstats  Vroni Grupp     @vgeodata    Slides available at:    dg_berlinR.netlify.com   2020-02-05" />
+    <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+    <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# <br>Hacking Germany’s Official Statistics with datenguideR
+### <br>Lisa Hehnke <br> <a href="https://twitter.com/dataplanes"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@dataplanes</span></a> <br>Fabio Votta <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br>Vroni Grupp <br> <a href="https://twitter.com/vgeodata"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@vgeodata</span></a> <br><br> Slides available at: <br><a href="https://dg_berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>  dg_berlinR.netlify.com</a> <br><br>2020-02-05
+
+---
+
+
+&lt;style&gt;
+.onehundredtwenty {
+  font-size: 120%;
+   }
+
+&lt;style&gt;
+.ninety {
+  font-size: 90%;
+   }
+
+.eightyfive {
+  font-size: 85%;
+   }
+   
+.eighty {
+  font-size: 80%;
+   }
+   
+.seventyfive {
+  font-size: 75%;
+   }
+   
+.seventy {
+  font-size: 70%;
+   }
+&lt;/style&gt;
+
+
+
+
+
+
+.pull-left[
+
+
+### How to `datenguideR`
+
+The `rOpenSci Package guide` states that:
+
+]
+
+
+.pull-right[
+
+
+&lt;img src="images/logo3.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+]
+
+&gt; Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+
+
+So in the best case scenario you come up with a naming scheme in the following style:
+
++ `object_verb`
+
+This scheme 
+
++ helps avoid namespace conflicts with packages that may have similar verbs
++ makes code readable and easy to auto-complete
+
+In `datenguideR` all functions start with `dg_*`, for example `dg_call`, `dg_descriptions` etc.
+
+
+
+---
+
+.pull-left[
+
+
+### How to `datenguideR`
+
+First install `datenguideR` from GitHub (not yet on CRAN)
+
+]
+
+
+.pull-right[
+
+
+&lt;img src="images/logo3.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+]
+
+
+
+```r
+devtools::install_github("CorrelAid/datenguideR")
+```
+
+--
+
+![](images/its_a_trap.png)
+---
+
+
+### Metadata with `dg_descriptions`
+
+Get all available meta data on statistics, substatistics, and parameters:
+
+
+```r
+datenguideR::dg_descriptions
+```
+
+```
+## # A tibble: 3,419 x 11
+##    stat_name stat_description stat_descriptio… substat_name
+##    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;       
+##  1 AENW01    Entsorgte/behan… "**Entsorgte/be… &lt;NA&gt;        
+##  2 AENW02    Abgelagerte Abf… "**Abgelagerte … &lt;NA&gt;        
+##  3 AENW03    Entsorg.u.Behan… "**Entsorg.u.Be… &lt;NA&gt;        
+##  4 AENW04    Entsorgte/behan… "**Entsorgte/be… &lt;NA&gt;        
+##  5 AENW05    Abgelagerte Abf… "**Abgelagerte … &lt;NA&gt;        
+##  6 AENW06    Entsorg.u.Behan… "**Entsorg.u.Be… &lt;NA&gt;        
+##  7 AEW001    Entsorgungs- un… "**Entsorgungs-… &lt;NA&gt;        
+##  8 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1      
+##  9 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1      
+## 10 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1      
+## # … with 3,409 more rows, and 7 more variables: substat_description &lt;chr&gt;,
+## #   param_name &lt;chr&gt;, param_description &lt;chr&gt;, stat_description_en &lt;chr&gt;,
+## #   stat_description_full_en &lt;chr&gt;, substat_description_en &lt;chr&gt;,
+## #   param_description_en &lt;chr&gt;
+```
+
+
+
+---
+
+
+
+
+### Metadata with `dg_descriptions`
+
+Variables are hierarchically organized on **three levels**: `stat`, `substat` and `param`.  A `stat` may or may not have any `substats` and a `substat` may or not have any `params`. It completely depends on the variable.
+
+
+```r
+stat level                  
+ ¦--stat_name
+ ¦--stat_description
+ ¦--stat_description_en
+ ¦--stat_description_full
+ ¦--stat_description_full_en
+ ¦
+ °--substat level
+     ¦--substat_name
+     ¦--substat_description
+     ¦--substat_description_en 
+     ¦  
+     °--param level       
+         ¦--param_name  
+         ¦--param_description
+         ¦--param_description_en
+```
+
+
+
+---
+
+
+class: center, middle, inverse
+
+## Confused?
+
+![](https://media3.giphy.com/media/1oJLpejP9jEvWQlZj4/giphy.gif)
+
+### Let's consider an example 
+
+---
+
+
+### Metadata with `dg_descriptions`
+
+Let's consider the example of population size (`BEVSTD`)
+
+
+```r
+stat level                  
+ ¦--stat_name
+ ¦--stat_description
+ ¦--stat_description_en
+ ¦--stat_description_full
+ ¦--stat_description_full_en
+ ¦
+ °--substat level
+     ¦--substat_name
+     ¦--substat_description
+     ¦--substat_description_en 
+     ¦  
+     °--param level       
+         ¦--param_name  
+         ¦--param_description
+         ¦--param_description_en
+```
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+Let's consider the example of population size (`BEVSTD`)
+
+
+```r
+stat level                  
+ ¦--stat_name: BEVSTD
+ ¦--stat_description: Bevölkerungsstand
+ ¦--stat_description_en: Population Size	
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
+ ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75
+     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦  
+     °--param level       
+         ¦--param_name: ALT018
+         ¦--param_description: 18 bis unter 19 Jahre	
+         ¦--param_description_en: 18 to under 19 Years
+```
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+First, there is the `stat_*` level.
+
+
+```r
+stat level
+*¦--stat_name: BEVSTD
+*¦--stat_description: Bevölkerungsstand
+*¦--stat_description_en: Population Size
+*¦--stat_description_full: Bevölkerungsstand aus GENESIS..
+*¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75
+     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦  
+     °--param level       
+         ¦--param_name: ALT018
+         ¦--param_description: 18 bis unter 19 Jahre	
+         ¦--param_description_en: 18 to under 19 Years
+```
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+The variable `stat_description_full_en` includes a long English description of a given statistic (written up in Markdown):
+
+--
+
+** Population size **
+  * from GENESIS statistics "Survey of public water supply" 32211) *
+  population size
+
+
+Explanation for the following statistics: 12411 Update of the population
+
+Conceptual content: population
+
+Since the beginning of the 1980s, the population of a municipality has included all persons who have their sole or main residence in this municipality ((§ 21f Federal Registration Act - BMG of 3 May 2013 (Federal Law Gazette I p. 1084), as last amended by Article 2 of the Law of October 11, 2016 (Federal Law Gazette I p. 2218)). Previously, the population was recorded at the place of sole or predominantly used apartment (resident population).
+
+The population is updated annually with the help of the results of the statistics of the natural population movement on births and deaths, marriages and marriage solutions, reasons for and abolition of civil partnerships, migration statistics on the influx and outflows as well as inventory corrections based on subsequent reports the registry and registration offices.
+
+The population data as of the 2011 reporting year are update figures based on the results of the census from May 9, 2011. The population data from December 31, 1987 to 2010 were compiled in the old federal states based on the results of the census of May 25, 1987, in the new federal states on October 3, 1990 based on an extract from the central population register of the former GDR official number of inhabitants determined the basis.
+
+The population also includes foreigners registered in the federal territory (including stateless persons and those seeking protection). By contrast, members of the deployment armed forces and foreign diplomatic and consular representations with their family members do not belong to the population.
+
+
+
+
+---
+
+### Metadata with `dg_descriptions`
+
+Next, there is the `substat_*` level. In the example, this substatistic holds all values for the population size from ages under 1 to 90.
+
+
+```r
+stat level                  
+ ¦--stat_name: BEVSTD
+ ¦--stat_description: Bevölkerungsstand
+ ¦--stat_description_en: Population Size	
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
+ ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+*    ¦--substat_name: ALTX75
+*    ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen)
+*    ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)
+     ¦  
+     °--param level       
+         ¦--param_name: ALT018
+         ¦--param_description: 18 bis unter 19 Jahre	
+         ¦--param_description_en: 18 to under 19 Years
+```
+
+Other possible examples of a substat for population size is the statistic split up by gender (`GES`) or nationality (`NAT`).
+
+---
+
+### Metadata with `dg_descriptions`
+
+Next, there is the `param_*` level. In the example, you can use this parameter to query individual age groups (for example 18 to 19).
+
+
+
+```r
+stat level                  
+ ¦--stat_name: BEVSTD
+ ¦--stat_description: Bevölkerungsstand
+ ¦--stat_description_en: Population Size	
+ ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
+ ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦
+ °--substat level
+     ¦--substat_name: ALTX75
+     ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen)
+     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)
+     ¦  
+     °--param level       
+*       ¦--param_name: ALT018}}
+*       ¦--param_description: 18 bis unter 19 Jahre
+*       ¦--param_description_en: 18 to under 19 Years}}
+```
+
+
+---
+
+
+class: center, middle, inverse
+
+## You might be thinking:
+
+![](https://media1.tenor.com/images/4ef9869087411906c87241c3b985941c/tenor.gif?itemid=7666363)
+
+### Don't worry, that's why we build `dg_search()`
+
+
+
+
+---
+
+### How to use `dg_search`
+
+`dg_search` matches your string with any variable in `dg_descriptions`, returning only rows with those matches.
+
+Looking for variables where the string *"vote"* appears somewhere in the documentation:
+
+
+```r
+dg_search("vote") 
+```
+
+
+```
+## # A tibble: 90 x 5
+##    stat_name stat_descriptio… stat_descriptio… substat_descrip…
+##    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
+##  1 AI0501    Second Vote Sha… "** CDU / CSU s… &lt;NA&gt;            
+##  2 AI0502    SPD Second Vote… "** SPD second … &lt;NA&gt;            
+##  3 AI0503    FDP Second Vote… "** Second vote… &lt;NA&gt;            
+##  4 AI0504    Second Vote Sha… "** GREEN secon… &lt;NA&gt;            
+##  5 AI0505    Second Vote Sha… "** Second vote… &lt;NA&gt;            
+##  6 AI0506    Voter Turnout, … "** Voter turno… &lt;NA&gt;            
+##  7 AI0601    CDU / CSU, Euro… "** CDU / CSU v… &lt;NA&gt;            
+##  8 AI0602    SPD Vote Share,… "** SPD vote sh… &lt;NA&gt;            
+##  9 AI0603    FDP Share of Vo… "** FDP vote sh… &lt;NA&gt;            
+## 10 AI0604    Share of Votes … "** GREEN share… &lt;NA&gt;            
+## # … with 80 more rows, and 1 more variable: param_description_en &lt;chr&gt;
+```
+
+
+---
+
+### How to `datenguideR`
+
+
+Get IDs of all available NUTS-1 regions:
+
+
+```r
+datenguideR::dg_regions %&gt;%
+  dplyr::filter(level == "nuts1") 
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["level"],"name":[3],"type":["chr"],"align":["left"]},{"label":["parent"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"01","2":"Schleswig-Holstein","3":"nuts1","4":"DG"},{"1":"02","2":"Hamburg","3":"nuts1","4":"DG"},{"1":"03","2":"Niedersachsen","3":"nuts1","4":"DG"},{"1":"04","2":"Bremen","3":"nuts1","4":"DG"},{"1":"05","2":"Nordrhein-Westfalen","3":"nuts1","4":"DG"},{"1":"06","2":"Hessen","3":"nuts1","4":"DG"},{"1":"07","2":"Rheinland-Pfalz","3":"nuts1","4":"DG"},{"1":"08","2":"Baden-Württemberg","3":"nuts1","4":"DG"},{"1":"09","2":"Bayern","3":"nuts1","4":"DG"},{"1":"10","2":"Saarland","3":"nuts1","4":"DG"},{"1":"11","2":"Berlin","3":"nuts1","4":"DG"},{"1":"12","2":"Brandenburg","3":"nuts1","4":"DG"},{"1":"13","2":"Mecklenburg-Vorpommern","3":"nuts1","4":"DG"},{"1":"14","2":"Sachsen","3":"nuts1","4":"DG"},{"1":"15","2":"Sachsen-Anhalt","3":"nuts1","4":"DG"},{"1":"16","2":"Thüringen","3":"nuts1","4":"DG"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+
+---
+
+
+class: center, middle, inverse
+
+# `dg_call`
+
+
+![](https://shityoucanafford.com/wp-content/uploads/2017/11/horse-head-mask-office-min.jpg)
+
+## The main work horse of `datenguideR`
+
+
+
+
+
+---
+
+### How to use `dg_call`
+
+Main arguments of `dg_call`
+
+&lt;table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' &gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'&gt;arguments&lt;/th&gt;
+&lt;th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'&gt;description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;region_id&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;The ID of a specific region&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;stat_name&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Main statistic&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;substat_name&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Sub-statistic&lt;br&gt;Defaults to all&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;parameter&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Parameter&lt;br&gt;Defaults to all&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;year&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Year(s)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;nuts_nr&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;NUTS level&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;lau_nr&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;LAU level&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;full_descriptions&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Full descriptions&lt;br&gt;Defaults to `FALSE`&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;long_format&lt;/td&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;Long format&lt;br&gt;Defaults to `FALSE`.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+### How to use `dg_call`
+
+
+ - **Statistic:** AI0506 *(Voter Turnout, Federal Election)*
+
+
+```r
+dg_call(region_id = "11",
+        year = 2002,
+        stat_name = "AI0506") 
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["int"],"align":["right"]},{"label":["value"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["GENESIS_source"],"name":[5],"type":["chr"],"align":["left"]},{"label":["GENESIS_source_nr"],"name":[6],"type":["chr"],"align":["left"]},{"label":["stat_name"],"name":[7],"type":["chr"],"align":["left"]},{"label":["stat_description"],"name":[8],"type":["chr"],"align":["left"]},{"label":["stat_description_en"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"11","2":"Berlin","3":"2002","4":"77.6","5":"Regionalatlas Deutschland","6":"99910","7":"AI0506","8":"Wahlbeteiligung, Bundestagswahl","9":"Voter Turnout, Federal Election"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+
+---
+
+class: center, middle, inverse
+
+## It's time to type some R code
+
+![](https://media1.tenor.com/images/72bf7922ac0b07b2f7f8f630e4ae01d2/tenor.gif?itemid=11364811)
+
+### Let's get to the Workshop Part
+
+
+
+
+
+
+
+
+---
+
+
+class: center, middle, inverse
+
+### Thank you for listening
+
+![](https://media1.tenor.com/images/da0f7d5d93faa11dfc36db1e6c6fdf2a/tenor.gif?itemid=6159389)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%<br>"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
