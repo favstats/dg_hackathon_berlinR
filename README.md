@@ -7,5 +7,8 @@ Access and download German regional statistics from Datenguide <http://datengui.
 
 Check out the GitHub Repository for [`datenguideR`](https://github.com/CorrelAid/datenguideR)
 
+If you are looking for use cases of `datenguideR` check out the folder `/scripts`.
 
- <img src='images/correlaid_logo.png' align="right" height="200" />
+Link to slides: [dg-berlinR.netlify.com](https://dg-berlinR.netlify.com)
+
+<img src='images/correlaid_logo.png' align="center" height="200" />

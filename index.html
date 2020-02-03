@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title> Hacking Germany’s Official Statistics with datenguideR</title>
     <meta charset="utf-8" />
@@ -7,7 +7,7 @@
     <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
     <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
-    <link rel="stylesheet" href="index_files\xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="index_files/xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -134,20 +134,20 @@ datenguideR::dg_descriptions
 
 ```
 ## # A tibble: 3,419 x 11
-##    stat_name stat_description stat_descriptio… substat_name
-##    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;       
-##  1 AENW01    Entsorgte/behan… "**Entsorgte/be… &lt;NA&gt;        
-##  2 AENW02    Abgelagerte Abf… "**Abgelagerte … &lt;NA&gt;        
-##  3 AENW03    Entsorg.u.Behan… "**Entsorg.u.Be… &lt;NA&gt;        
-##  4 AENW04    Entsorgte/behan… "**Entsorgte/be… &lt;NA&gt;        
-##  5 AENW05    Abgelagerte Abf… "**Abgelagerte … &lt;NA&gt;        
-##  6 AENW06    Entsorg.u.Behan… "**Entsorg.u.Be… &lt;NA&gt;        
-##  7 AEW001    Entsorgungs- un… "**Entsorgungs-… &lt;NA&gt;        
-##  8 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1      
-##  9 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1      
-## 10 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1      
-## # … with 3,409 more rows, and 7 more variables: substat_description &lt;chr&gt;,
-## #   param_name &lt;chr&gt;, param_description &lt;chr&gt;, stat_description_en &lt;chr&gt;,
+##    stat_name stat_description stat_descriptio… substat_name substat_descrip…
+##    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;           
+##  1 AENW01    Entsorgte/behan… "**Entsorgte/be… &lt;NA&gt;         &lt;NA&gt;            
+##  2 AENW02    Abgelagerte Abf… "**Abgelagerte … &lt;NA&gt;         &lt;NA&gt;            
+##  3 AENW03    Entsorg.u.Behan… "**Entsorg.u.Be… &lt;NA&gt;         &lt;NA&gt;            
+##  4 AENW04    Entsorgte/behan… "**Entsorgte/be… &lt;NA&gt;         &lt;NA&gt;            
+##  5 AENW05    Abgelagerte Abf… "**Abgelagerte … &lt;NA&gt;         &lt;NA&gt;            
+##  6 AENW06    Entsorg.u.Behan… "**Entsorg.u.Be… &lt;NA&gt;         &lt;NA&gt;            
+##  7 AEW001    Entsorgungs- un… "**Entsorgungs-… &lt;NA&gt;         &lt;NA&gt;            
+##  8 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1       Entsorgungs- un…
+##  9 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1       Entsorgungs- un…
+## 10 AEW001    Entsorgungs- un… "**Entsorgungs-… EBANL1       Entsorgungs- un…
+## # … with 3,409 more rows, and 6 more variables: param_name &lt;chr&gt;,
+## #   param_description &lt;chr&gt;, stat_description_en &lt;chr&gt;,
 ## #   stat_description_full_en &lt;chr&gt;, substat_description_en &lt;chr&gt;,
 ## #   param_description_en &lt;chr&gt;
 ```
@@ -396,19 +396,19 @@ dg_search("vote")
 
 ```
 ## # A tibble: 90 x 5
-##    stat_name stat_descriptio… stat_descriptio… substat_descrip…
-##    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
-##  1 AI0501    Second Vote Sha… "** CDU / CSU s… &lt;NA&gt;            
-##  2 AI0502    SPD Second Vote… "** SPD second … &lt;NA&gt;            
-##  3 AI0503    FDP Second Vote… "** Second vote… &lt;NA&gt;            
-##  4 AI0504    Second Vote Sha… "** GREEN secon… &lt;NA&gt;            
-##  5 AI0505    Second Vote Sha… "** Second vote… &lt;NA&gt;            
-##  6 AI0506    Voter Turnout, … "** Voter turno… &lt;NA&gt;            
-##  7 AI0601    CDU / CSU, Euro… "** CDU / CSU v… &lt;NA&gt;            
-##  8 AI0602    SPD Vote Share,… "** SPD vote sh… &lt;NA&gt;            
-##  9 AI0603    FDP Share of Vo… "** FDP vote sh… &lt;NA&gt;            
-## 10 AI0604    Share of Votes … "** GREEN share… &lt;NA&gt;            
-## # … with 80 more rows, and 1 more variable: param_description_en &lt;chr&gt;
+##    stat_name stat_descriptio… stat_descriptio… substat_descrip… param_descripti…
+##    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
+##  1 AI0501    Second Vote Sha… "** CDU / CSU s… &lt;NA&gt;             &lt;NA&gt;            
+##  2 AI0502    SPD Second Vote… "** SPD second … &lt;NA&gt;             &lt;NA&gt;            
+##  3 AI0503    FDP Second Vote… "** Second vote… &lt;NA&gt;             &lt;NA&gt;            
+##  4 AI0504    Second Vote Sha… "** GREEN secon… &lt;NA&gt;             &lt;NA&gt;            
+##  5 AI0505    Second Vote Sha… "** Second vote… &lt;NA&gt;             &lt;NA&gt;            
+##  6 AI0506    Voter Turnout, … "** Voter turno… &lt;NA&gt;             &lt;NA&gt;            
+##  7 AI0601    CDU / CSU, Euro… "** CDU / CSU v… &lt;NA&gt;             &lt;NA&gt;            
+##  8 AI0602    SPD Vote Share,… "** SPD vote sh… &lt;NA&gt;             &lt;NA&gt;            
+##  9 AI0603    FDP Share of Vo… "** FDP vote sh… &lt;NA&gt;             &lt;NA&gt;            
+## 10 AI0604    Share of Votes … "** GREEN share… &lt;NA&gt;             &lt;NA&gt;            
+## # … with 80 more rows
 ```
 
 
@@ -604,7 +604,7 @@ class: center
 
 ## Hackathon Instructions
 
-You can fork/download this [GitHub repository](https://github.com/favstats/dg_workshop_berlinR), which includes the slides and some example code.
+You can fork/download this [GitHub repository](https://github.com/favstats/dg_hackathon_berlinR), which includes the slides and some example code.
 
 You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the [invite link](https://rstudio.cloud/spaces/49837/join?access_code=VCjFndcJdRrG7M1DP2VAq45LWZtan4xzHjhpUu
 xQ).
@@ -728,7 +728,7 @@ Feel free to play around with the data as you wish!
 
 class: center, middle, inverse
 
-### Submissions from Previous Workshop
+### Submissions from Previous hackathon
 
 ![](https://raw.githubusercontent.com/TripLLL/weRnuts3/master/trash_emoji.gif)
 
@@ -807,7 +807,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

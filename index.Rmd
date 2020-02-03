@@ -583,7 +583,7 @@ knitr::include_graphics("images/sustainableheat_map.png")
 
 ## Hackathon Instructions
 
-You can fork/download this [GitHub repository](https://github.com/favstats/dg_workshop_berlinR), which includes the slides and some example code.
+You can fork/download this [GitHub repository](https://github.com/favstats/dg_hackathon_berlinR), which includes the slides and some example code.
 
 You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the [invite link](https://rstudio.cloud/spaces/49837/join?access_code=VCjFndcJdRrG7M1DP2VAq45LWZtan4xzHjhpUu
 xQ).
@@ -658,7 +658,7 @@ datenguideR::dg_descriptions %>%
 
 class: center, middle, inverse
 
-### Submissions from Previous Workshop
+### Submissions from Previous hackathon
 
 ![](https://raw.githubusercontent.com/TripLLL/weRnuts3/master/trash_emoji.gif)
 

@@ -2,11 +2,16 @@
 output: html_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# datenguideR <img src='images/logo3.png' align="right" height="139" />
+# datenguideR 
 
 ```{r, include = FALSE}
+## install the following packages:
+# devtools::install_github("CorrelAid/datenguideR")
+if(!require("pacman")) install.packages("pacman")
+
+
+pacman::p_load(tidyverse, ggplot2, ggthemes, knitr, datenguideR)
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -15,12 +20,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 
-## install the following packages:
-# devtools::install_github("CorrelAid/datenguideR")
-if(!require("pacman")) install.packages("pacman")
 
-
-pacman::p_load(tidyverse, ggplot2, ggthemes, knitr, datenguideR)
 ```
 
 

@@ -4,7 +4,7 @@
 # devtools::install_github("CorrelAid/datenguideR")
 if(!require("pacman")) install.packages("pacman")
 
-pacman::p_load(tidyverse, datenguideR, sf, magrittr)
+pacman::p_load(tidyverse, datenguideR, sf, magrittr, tmap)
 
 # 1) Download spatial Data für Nuts1 & Nuts2
 # 2) Create static map with sf and tmap
