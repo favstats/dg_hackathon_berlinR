@@ -12,8 +12,8 @@ output:
       countIncrementalSlides: false
       slideNumberFormat: "%current%<br>"
     includes:
-      in_header: libs/header.html      
-    css: libs/xaringan-themer.css
+      in_header: index_files/header.html      
+    css: index_files/xaringan-themer.css
 ---
 
 <style>
