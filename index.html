@@ -7,7 +7,7 @@
     <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
     <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
-    <link rel="stylesheet" href="scripts\xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="libs\xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -43,6 +43,10 @@ class: center, middle, inverse, title-slide
    
 .seventy {
   font-size: 70%;
+   }
+   
+.sixty {
+  font-size: 60%;
    }
    
 .fifty {
@@ -591,7 +595,8 @@ class: center
 
 class: center
 
-![](images/sustainableheat_map.png)
+&lt;img src="images/sustainableheat_map.png" width="450" height="600" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -599,10 +604,121 @@ class: center
 
 You can fork/download this [GitHub repository](https://github.com/favstats/dg_workshop_berlinR), which includes the slides and some example code.
 
-You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the invite link:
+You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the [invite link](https://rstudio.cloud/spaces/49837/join?access_code=VCjFndcJdRrG7M1DP2VAq45LWZtan4xzHjhpUu
+xQ).
+
+In the end, you can present your dashboards, shiny apps, plots or analyses.
+
+The best submissions will be shared on Twitter and may receive some goodies (stickerzzzzz! &lt;3)
+
+Feel free to play around with the data!
+
+---
+
+## Some Examples and Challenges
+
+.sixty[
 
 
-Feel free to play around with the data.
+&lt;table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' &gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'&gt;stat_name&lt;/th&gt;
+&lt;th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'&gt;description_en&lt;/th&gt;
+&lt;th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'&gt;challenge&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AENW01&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Disposed / Treated Amount of Waste A.d. Own BL&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Environmental Protection / Sustainability&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI1901&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Household Waste per Inhabitant&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Environmental Protection / Sustainability&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI_Z04&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Share of Persons with MHG in the Total Population&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Migration&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI0801&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Unemployment Rate&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Unemployment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI2102&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;SGB II Quota Up to 64 Years&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Unemployment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;ERW009&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Unemployment Rate on all Acquisition Persons.&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Unemployment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI0506&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Voter Turnout, Federal Election&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Politics&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI0606&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Voter Turnout, European Elections&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Politics&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;WAHL09&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Valid Second Votes&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Politics&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;WAHLSR&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Voter Turnout&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Politics&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI1302&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Road Traffic Accidents per 10,000 Inhabitants&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Traffic&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI1304&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Fatalities in Road Traffic Accidents per 100,000 Inhabitants&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Traffic&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI1601&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Disposable Income per Inhabitant&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Social Inequality&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;AI1703&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;GDP per Inhabitant&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Social Inequality&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;FLC001&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Living Space in Residential Buildings&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Housing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='text-align: center;'&gt;BAU009&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Residential Building&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Housing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;WOHNGB&lt;/td&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;Residential Building&lt;/td&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;Housing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
 
 ---
 
@@ -618,11 +734,12 @@ Click [here](https://github.com/TripLLL/weRnuts3) for GitHub repository
 
 class: center, middle, inverse
 
-## It's time to type some R code
+### It's time to type some R code
 
 ![](https://media1.tenor.com/images/72bf7922ac0b07b2f7f8f630e4ae01d2/tenor.gif?itemid=11364811)
 
-### Let's get to the Workshop Part
+#### Let's get to the
+### `H A C K I N G`
 
 
 

@@ -12,8 +12,8 @@ output:
       countIncrementalSlides: false
       slideNumberFormat: "%current%<br>"
     includes:
-      in_header: scripts/header.html      
-    css: scripts/xaringan-themer.css
+      in_header: libs/header.html      
+    css: libs/xaringan-themer.css
 ---
 
 <style>
@@ -40,6 +40,10 @@ output:
    
 .seventy {
   font-size: 70%;
+   }
+   
+.sixty {
+  font-size: 60%;
    }
    
 .fifty {
@@ -561,7 +565,12 @@ class: center
 
 class: center
 
-![](images/sustainableheat_map.png)
+```{r, echo = F, out.width=450, out.height=600, fig.align='center'}
+knitr::include_graphics("images/sustainableheat_map.png")
+
+
+```
+
 
 ---
 
@@ -569,10 +578,72 @@ class: center
 
 You can fork/download this [GitHub repository](https://github.com/favstats/dg_workshop_berlinR), which includes the slides and some example code.
 
-You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the invite link:
+You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the [invite link](https://rstudio.cloud/spaces/49837/join?access_code=VCjFndcJdRrG7M1DP2VAq45LWZtan4xzHjhpUu
+xQ).
+
+In the end, you can present your dashboards, shiny apps, plots or analyses.
+
+The best submissions will be shared on Twitter and may receive some goodies (stickerzzzzz! <3)
+
+Feel free to play around with the data!
+
+---
+
+## Some Examples and Challenges
+
+.sixty[
 
 
-Feel free to play around with the data.
+```{r, echo = F}
+
+
+hackmd_dat <- tibble::tribble(
+  ~Name.der.Statistik,                                                              ~Beschreibung,                  ~"Challenge",
+             "AENW01",                            "Entsorgte/behandelte Abfallmenge a.d. eig. BL", "Umweltschutz/Nachhaltigkeit",
+             "AI1901",                                            "Haushaltsabfälle je Einwohner", "Umweltschutz/Nachhaltigkeit",
+             "AI_Z04", "Anteil Personen mit MHG [Migrationshintergrund] an der Gesamtbevölkerung",                   "Migration",
+             "AI0801",                                                        "Arbeitslosenquote",            "Arbeitslosigkeit",
+             "AI2102",                                                "SGB II-Quote bis 64 Jahre",            "Arbeitslosigkeit",
+             "ERW009",                             "Arbeitslosenquote bez. auf alle Erwerbspers.",            "Arbeitslosigkeit",
+             "AI0506",                                          "Wahlbeteiligung, Bundestagswahl",                     "Politik",
+             "AI0606",                                              "Wahlbeteiligung, Europawahl",                     "Politik",
+             "WAHL09",                                                     "Gültige Zweitstimmen",                     "Politik",
+             "WAHLSR",                                                          "Wahlbeteiligung",                     "Politik",
+             "AI1302",                               "Straßenverkehrsunfälle je 10.000 Einwohner",                     "Verkehr",
+             "AI1304",                       "Getötete bei Straßenverkehrsunfällen je 100.000 EW",                     "Verkehr",
+             "AI1601",                                       "Verfügbares Einkommen je Einwohner",        "Soziale Ungleichheit",
+             "AI1703",                                                         "BIP je Einwohner",        "Soziale Ungleichheit",
+             "FLC001",                                               "Wohnfläche in Wohngebäuden",                      "Wohnen",
+    "BAU009 & WOHNGB",                                                              "Wohngebäude",                      "Wohnen"
+  ) 
+  
+# hackmd_dat %>% 
+#   dplyr::pull(Challenge) %>% 
+#   dput()
+
+stat_names <- c("AENW01", "AI1901", "AI_Z04", "AI0801", "AI2102", "ERW009", 
+"AI0506", "AI0606", "WAHL09", "WAHLSR", "AI1302", "AI1304", "AI1601", 
+"AI1703", "FLC001", "BAU009", "WOHNGB")
+
+challenges <- c("Environmental Protection / Sustainability", "Environmental Protection / Sustainability",
+"Migration", "Unemployment", "Unemployment", "Unemployment",
+"Politics", "Politics", "Politics", "Politics", "Traffic", "Traffic",
+"Social Inequality", "Social Inequality", "Housing", "Housing", "Housing"
+)
+
+datenguideR::dg_descriptions %>% 
+  dplyr::filter(stat_name %in% stat_names) %>% 
+  dplyr::distinct(stat_name, .keep_all = T) %>% 
+  dplyr::select(stat_name, description_en = stat_description_en) %>% 
+  dplyr::mutate(stat_name = forcats::fct_relevel(stat_name, stat_names)) %>% 
+  dplyr::arrange(stat_name) %>% 
+  dplyr::mutate(challenge = challenges) %>% 
+  htmlTable::htmlTable(rnames = F)
+
+```
+
+]
+
 
 ---
 
@@ -588,11 +659,12 @@ Click [here](https://github.com/TripLLL/weRnuts3) for GitHub repository
 
 class: center, middle, inverse
 
-## It's time to type some R code
+### It's time to type some R code
 
 ![](https://media1.tenor.com/images/72bf7922ac0b07b2f7f8f630e4ae01d2/tenor.gif?itemid=11364811)
 
-### Let's get to the Workshop Part
+#### Let's get to the
+### `H A C K I N G`
 
 
 
