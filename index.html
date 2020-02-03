@@ -7,7 +7,7 @@
     <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
     <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="scripts\xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -43,6 +43,10 @@ class: center, middle, inverse, title-slide
    
 .seventy {
   font-size: 70%;
+   }
+   
+.fifty {
+  font-size: 50%;
    }
 &lt;/style&gt;
 
@@ -193,7 +197,7 @@ class: center, middle, inverse
 
 ### Metadata with `dg_descriptions`
 
-Let's consider the example of population size (`BEVSTD`)
+Let's consider the example of statistics on new German citizens (`BEV008`)
 
 
 ```r
@@ -220,26 +224,26 @@ stat level
 
 ### Metadata with `dg_descriptions`
 
-Let's consider the example of population size (`BEVSTD`)
+Let's consider the example of statistics on new German citizens (`BEV008`)
 
 
 ```r
 stat level                  
- ¦--stat_name: BEVSTD
- ¦--stat_description: Bevölkerungsstand
- ¦--stat_description_en: Population Size	
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
- ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦--stat_name: BEV008
+ ¦--stat_description: Einbürgerungen von Ausländern	
+ ¦--stat_description_en: Naturalizations of Foreigners	
+ ¦--stat_description_full: ... 
+ ¦--stat_description_full_en: ...
  ¦
  °--substat level
-     ¦--substat_name: ALTX75
-     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦--substat_name: STAKNW
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)		
      ¦  
      °--param level       
-         ¦--param_name: ALT018
-         ¦--param_description: 18 bis unter 19 Jahre	
-         ¦--param_description_en: 18 to under 19 Years
+         ¦--param_name: ST997
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe		
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
 ```
 
 
@@ -251,22 +255,22 @@ First, there is the `stat_*` level.
 
 
 ```r
-stat level
-*¦--stat_name: BEVSTD
-*¦--stat_description: Bevölkerungsstand
-*¦--stat_description_en: Population Size
-*¦--stat_description_full: Bevölkerungsstand aus GENESIS..
-*¦--stat_description_full_en: Population Size from GENESIS..
+*stat level
+*¦--stat_name: BEV008
+*¦--stat_description: Einbürgerungen von Ausländern
+*¦--stat_description_en: Naturalizations of Foreigners
+*¦--stat_description_full: ...
+*¦--stat_description_full_en: ...
  ¦
  °--substat level
-     ¦--substat_name: ALTX75
-     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦--substat_name: STAKNW
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)		
      ¦  
      °--param level       
-         ¦--param_name: ALT018
-         ¦--param_description: 18 bis unter 19 Jahre	
-         ¦--param_description_en: 18 to under 19 Years
+         ¦--param_name: ST997
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe		
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
 ```
 
 
@@ -278,80 +282,84 @@ The variable `stat_description_full_en` includes a long English description of a
 
 --
 
-** Population size **
-  * from GENESIS statistics "Survey of public water supply" 32211) *
-  population size
+.seventyfive[
 
 
-Explanation for the following statistics: 12411 Update of the population
-
-Conceptual content: population
-
-Since the beginning of the 1980s, the population of a municipality has included all persons who have their sole or main residence in this municipality ((§ 21f Federal Registration Act - BMG of 3 May 2013 (Federal Law Gazette I p. 1084), as last amended by Article 2 of the Law of October 11, 2016 (Federal Law Gazette I p. 2218)). Previously, the population was recorded at the place of sole or predominantly used apartment (resident population).
-
-The population is updated annually with the help of the results of the statistics of the natural population movement on births and deaths, marriages and marriage solutions, reasons for and abolition of civil partnerships, migration statistics on the influx and outflows as well as inventory corrections based on subsequent reports the registry and registration offices.
-
-The population data as of the 2011 reporting year are update figures based on the results of the census from May 9, 2011. The population data from December 31, 1987 to 2010 were compiled in the old federal states based on the results of the census of May 25, 1987, in the new federal states on October 3, 1990 based on an extract from the central population register of the former GDR official number of inhabitants determined the basis.
-
-The population also includes foreigners registered in the federal territory (including stateless persons and those seeking protection). By contrast, members of the deployment armed forces and foreign diplomatic and consular representations with their family members do not belong to the population.
+** Naturalizations of foreigners **
+  * from GENESIS statistics "Naturalization Statistics" 12511) *
+  Naturalizations of foreigners
 
 
+Explanation for the following statistics: 12511 Naturalization statistics
+
+Conceptual content: Naturalizations
+
+Naturalizations are the total number of naturalizations of foreigners carried out by German authorities in Germany and abroad in the course of the reporting year. In the case of naturalization, a foreigner is granted German citizenship by handing in a certificate of naturalization. For this, an application must be made and the foreign person concerned must meet certain requirements. Naturalizations occur in the majority on the basis of the Citizenship Act (StAG), but also by other legal bases that mostly regulate old and reparation cases. The naturalization statistics report on naturalizations carried out in Germany and abroad by German authorities in the course of the reporting year according to their previous nationality, legal grounds for naturalization, length of stay in the federal territory, gender, age, marital status and according to continuing or discontinued citizenship. The regional proof of naturalization cases relates to the place of residence of the naturalized person at the time of naturalization. The data does not include the acquisition of German citizenship by the birth of children of foreign parents born in Germany (pursuant to Section 4 (3) StAG).
+
+Conceptual content: foreigners
+
+Foreigners are all persons who do not have German citizenship, ie are not German within the meaning of Article 116 (1) of the Basic Law (GG). Stateless persons and people with unresolved citizenships also belong to this group of people.
 
 
----
 
-### Metadata with `dg_descriptions`
-
-Next, there is the `substat_*` level. In the example, this substatistic holds all values for the population size from ages under 1 to 90.
-
-
-```r
-stat level                  
- ¦--stat_name: BEVSTD
- ¦--stat_description: Bevölkerungsstand
- ¦--stat_description_en: Population Size	
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
- ¦--stat_description_full_en: Population Size from GENESIS..
- ¦
- °--substat level
-*    ¦--substat_name: ALTX75
-*    ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen)
-*    ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)
-     ¦  
-     °--param level       
-         ¦--param_name: ALT018
-         ¦--param_description: 18 bis unter 19 Jahre	
-         ¦--param_description_en: 18 to under 19 Years
-```
-
-Other possible examples of a substat for population size is the statistic split up by gender (`GES`) or nationality (`NAT`).
+]
 
 ---
 
 ### Metadata with `dg_descriptions`
 
-Next, there is the `param_*` level. In the example, you can use this parameter to query individual age groups (for example 18 to 19).
+Next, there is the `substat_*` level. In the example, the substatistic splits new statistics by continent of origin (`STAKNW`).
+
+
+```r
+stat level                  
+ ¦--stat_name: BEV008
+ ¦--stat_description: Einbürgerungen von Ausländern	
+ ¦--stat_description_en: Naturalizations of Foreigners	
+ ¦--stat_description_full: ... 
+ ¦--stat_description_full_en: ...
+ ¦
+*°--substat level
+*    ¦--substat_name: STAKNW
+*    ¦--substat_description: Kontinente (einschl. staatenlos etc.)
+*    ¦--substat_description_en: Continents (Including Stateless Etc.)
+     ¦  
+     °--param level       
+         ¦--param_name: ST997
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe		
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
+```
+
+Other possible examples of a substat for `BEV008` is the statistic split up by age groups (`ALTX04`) or Length of Stay (`AUFDA1`).
+
+---
+
+### Metadata with `dg_descriptions`
+
+Next, there is the `param_*` level. In the example, we use `ST997` which queries new citizens who were "stateless" or have unknown origins.
 
 
 
 ```r
 stat level                  
- ¦--stat_name: BEVSTD
- ¦--stat_description: Bevölkerungsstand
- ¦--stat_description_en: Population Size	
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
- ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦--stat_name: BEV008
+ ¦--stat_description: Einbürgerungen von Ausländern	
+ ¦--stat_description_en: Naturalizations of Foreigners	
+ ¦--stat_description_full: ... 
+ ¦--stat_description_full_en: ...
  ¦
- °--substat level
-     ¦--substat_name: ALTX75
-     ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen)
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)
+ °--substat level     
+     ¦--substat_name: STAKNW    
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)    	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)	    	
      ¦  
-     °--param level       
-*       ¦--param_name: ALT018}}
-*       ¦--param_description: 18 bis unter 19 Jahre
-*       ¦--param_description_en: 18 to under 19 Years}}
+*    °--param level
+*        ¦--param_name: ST997
+*        ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe
+*        ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
 ```
+
+
 
 
 ---
@@ -440,7 +448,9 @@ class: center, middle, inverse
 
 ### How to use `dg_call`
 
-Main arguments of `dg_call`
+Main arguments of `dg_call`:
+
+&lt;br&gt;
 
 &lt;table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' &gt;
 &lt;thead&gt;
@@ -460,7 +470,7 @@ Main arguments of `dg_call`
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style='text-align: center;'&gt;substat_name&lt;/td&gt;
-&lt;td style='text-align: center;'&gt;Sub-statistic&lt;br&gt;Defaults to all&lt;/td&gt;
+&lt;td style='text-align: center;'&gt;Sub-statistic&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style='text-align: center;'&gt;parameter&lt;/td&gt;
@@ -479,12 +489,8 @@ Main arguments of `dg_call`
 &lt;td style='text-align: center;'&gt;LAU level&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style='text-align: center;'&gt;full_descriptions&lt;/td&gt;
-&lt;td style='text-align: center;'&gt;Full descriptions&lt;br&gt;Defaults to `FALSE`&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;long_format&lt;/td&gt;
-&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;Long format&lt;br&gt;Defaults to `FALSE`.&lt;/td&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;full_descriptions&lt;/td&gt;
+&lt;td style='border-bottom: 2px solid grey; text-align: center;'&gt;Full descriptions&lt;br&gt;Defaults to `FALSE`&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -496,21 +502,117 @@ Main arguments of `dg_call`
 ### How to use `dg_call`
 
 
- - **Statistic:** AI0506 *(Voter Turnout, Federal Election)*
-
-
 ```r
-dg_call(region_id = "11",
-        year = 2002,
-        stat_name = "AI0506") 
+dg_call(nuts_nr = 1,             # NUTS-1    
+        year = 2017,             # Specify Year  
+        stat_name = "BEV008",    # Stats on New Citizens  
+        substat_name = "STAKNW", # By Continent  
+        parameter = "GESAMT")    # All categories summed   
 ```
 
 &lt;div data-pagedtable="false"&gt;
   &lt;script data-pagedtable-source type="application/json"&gt;
-{"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["int"],"align":["right"]},{"label":["value"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["GENESIS_source"],"name":[5],"type":["chr"],"align":["left"]},{"label":["GENESIS_source_nr"],"name":[6],"type":["chr"],"align":["left"]},{"label":["stat_name"],"name":[7],"type":["chr"],"align":["left"]},{"label":["stat_description"],"name":[8],"type":["chr"],"align":["left"]},{"label":["stat_description_en"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"11","2":"Berlin","3":"2002","4":"77.6","5":"Regionalatlas Deutschland","6":"99910","7":"AI0506","8":"Wahlbeteiligung, Bundestagswahl","9":"Voter Turnout, Federal Election"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["STAKNW"],"name":[3],"type":["chr"],"align":["left"]},{"label":["value"],"name":[4],"type":["int"],"align":["right"]},{"label":["name"],"name":[5],"type":["chr"],"align":["left"]},{"label":["GENESIS_source"],"name":[6],"type":["chr"],"align":["left"]},{"label":["GENESIS_source_nr"],"name":[7],"type":["chr"],"align":["left"]},{"label":["stat_name"],"name":[8],"type":["chr"],"align":["left"]},{"label":["stat_description"],"name":[9],"type":["chr"],"align":["left"]},{"label":["substat_description"],"name":[10],"type":["chr"],"align":["left"]},{"label":["param_description"],"name":[11],"type":["chr"],"align":["left"]},{"label":["stat_description_en"],"name":[12],"type":["chr"],"align":["left"]},{"label":["substat_description_en"],"name":[13],"type":["chr"],"align":["left"]},{"label":["param_description_en"],"name":[14],"type":["chr"],"align":["left"]},{"label":["year_id"],"name":[15],"type":["chr"],"align":["left"]}],"data":[{"1":"10","2":"2017","3":"GESAMT","4":"1188","5":"Saarland","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_10"},{"1":"11","2":"2017","3":"GESAMT","4":"6479","5":"Berlin","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_11"},{"1":"12","2":"2017","3":"GESAMT","4":"765","5":"Brandenburg","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_12"},{"1":"13","2":"2017","3":"GESAMT","4":"526","5":"Mecklenburg-Vorpommern","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_13"},{"1":"14","2":"2017","3":"GESAMT","4":"1560","5":"Sachsen","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_14"},{"1":"15","2":"2017","3":"GESAMT","4":"734","5":"Sachsen-Anhalt","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_15"},{"1":"16","2":"2017","3":"GESAMT","4":"701","5":"Thüringen","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_16"},{"1":"01","2":"2017","3":"GESAMT","4":"2714","5":"Schleswig-Holstein","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_01"},{"1":"02","2":"2017","3":"GESAMT","4":"5608","5":"Hamburg","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_02"},{"1":"03","2":"2017","3":"GESAMT","4":"8785","5":"Niedersachsen","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_03"},{"1":"04","2":"2017","3":"GESAMT","4":"1449","5":"Bremen","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_04"},{"1":"05","2":"2017","3":"GESAMT","4":"27381","5":"Nordrhein-Westfalen","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_05"},{"1":"06","2":"2017","3":"GESAMT","4":"11496","5":"Hessen","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_06"},{"1":"07","2":"2017","3":"GESAMT","4":"5881","5":"Rheinland-Pfalz","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_07"},{"1":"08","2":"2017","3":"GESAMT","4":"18299","5":"Baden-Württemberg, Land","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_08"},{"1":"09","2":"2017","3":"GESAMT","4":"15638","5":"Bayern","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"Kontinente (einschl. staatenlos etc.)","11":"Gesamt","12":"Naturalizations of Foreigners","13":"Continents (Including Stateless Etc.)","14":"Total","15":"2017_09"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   &lt;/script&gt;
 &lt;/div&gt;
 
+---
+
+### How to use `dg_call`
+
+
+```r
+*dg_call(nuts_nr = 1,                  # NUTS-1
+*       year = 2017,                  # Specify Year
+*       stat_name = "BEV008",         # Stats on New Citizens
+*       substat_name = "STAKNW") %&gt;%  # By Continent
+  filter(STAKNW != "GESAMT") %&gt;% 
+  group_by(param_description_en) %&gt;% 
+  summarise(value = sum(value)) %&gt;% 
+  mutate(param_description_en = ifelse(
+    str_detect(param_description_en, "Stateless"), "Stateless", param_description_en
+    )
+  ) %&gt;% 
+  mutate(param_description_en = fct_reorder(param_description_en, value)) %&gt;% 
+  ggplot(aes(param_description_en, value)) +
+  geom_col(fill = "darkblue", alpha = .75) +
+  geom_label(aes(label = value)) +
+  theme_minimal() +
+  labs(x = "", y = "Number of New Citizens\n", 
+       title = "New German Citizens by Origin Continent (2017)",
+       caption = "Source: Einbürgerungsstatistik") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 70000)) 
+```
+
+---
+
+### How to use `dg_call`
+
+&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="600" height="500" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+### How to use `dg_map`
+
+
+```r
+*dg_map(nuts_nr = 1,
+*       year = 2017,
+*       stat_name = "AI0506")  +
+  ggthemes::theme_map() +
+  ggplot2::scale_fill_viridis_c("Voter Turnout") +
+  ggplot2::ggtitle("Voter Turnout in German Parliamentary Election (2017)") +
+  ggplot2::theme(legend.position = "right")
+```
+
+---
+
+### How to use `dg_map`
+
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: center, middle
+
+
+## More Maps!
+
+---
+
+class: center
+
+![](images/dedomains.gif)
+
+---
+
+
+class: center
+
+![](images/sustainableheat_map.png)
+
+---
+
+## Hackathon Instructions
+
+You can fork/download this [GitHub repository](https://github.com/favstats/dg_workshop_berlinR), which includes the slides and some example code.
+
+You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the invite link:
+
+
+Feel free to play around with the data.
+
+---
+
+class: center, middle, inverse
+
+### Submissions from Previous Workshop
+
+![](https://raw.githubusercontent.com/TripLLL/weRnuts3/master/trash_emoji.gif)
+
+Click [here](https://github.com/TripLLL/weRnuts3) for GitHub repository
 
 ---
 

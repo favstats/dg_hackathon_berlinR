@@ -12,8 +12,8 @@ output:
       countIncrementalSlides: false
       slideNumberFormat: "%current%<br>"
     includes:
-      in_header: header.html      
-    css: xaringan-themer.css
+      in_header: scripts/header.html      
+    css: scripts/xaringan-themer.css
 ---
 
 <style>
@@ -40,6 +40,10 @@ output:
    
 .seventy {
   font-size: 70%;
+   }
+   
+.fifty {
+  font-size: 50%;
    }
 </style>
 
@@ -184,7 +188,7 @@ class: center, middle, inverse
 
 ### Metadata with `dg_descriptions`
 
-Let's consider the example of population size (`BEVSTD`)
+Let's consider the example of statistics on new German citizens (`BEV008`)
 
 ```{r, eval  = F}
 
@@ -211,26 +215,26 @@ stat level
 
 ### Metadata with `dg_descriptions`
 
-Let's consider the example of population size (`BEVSTD`)
+Let's consider the example of statistics on new German citizens (`BEV008`)
 
 ```{r, eval  = F}
 
 stat level                  
- ¦--stat_name: BEVSTD
- ¦--stat_description: Bevölkerungsstand
- ¦--stat_description_en: Population Size	
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
- ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦--stat_name: BEV008
+ ¦--stat_description: Einbürgerungen von Ausländern	
+ ¦--stat_description_en: Naturalizations of Foreigners	
+ ¦--stat_description_full: ... 
+ ¦--stat_description_full_en: ...
  ¦
  °--substat level
-     ¦--substat_name: ALTX75
-     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦--substat_name: STAKNW
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)		
      ¦  
      °--param level       
-         ¦--param_name: ALT018
-         ¦--param_description: 18 bis unter 19 Jahre	
-         ¦--param_description_en: 18 to under 19 Years
+         ¦--param_name: ST997
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe		
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
 ```
 
 
@@ -242,22 +246,22 @@ First, there is the `stat_*` level.
 
 ```{r, eval  = F}
 
-stat level
- ¦--stat_name: BEVSTD #<<
- ¦--stat_description: Bevölkerungsstand #<<
- ¦--stat_description_en: Population Size	#<<
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. #<<
- ¦--stat_description_full_en: Population Size from GENESIS.. #<<
+stat level           #<<       
+ ¦--stat_name: BEV008  #<<
+ ¦--stat_description: Einbürgerungen von Ausländern	#<<
+ ¦--stat_description_en: Naturalizations of Foreigners	#<<
+ ¦--stat_description_full: ... #<<
+ ¦--stat_description_full_en: ...   #<<
  ¦
  °--substat level
-     ¦--substat_name: ALTX75
-     ¦--substat_description: Altersjahre (unter 1 bis 75, Altersgruppen)
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)	
+     ¦--substat_name: STAKNW
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)		
      ¦  
      °--param level       
-         ¦--param_name: ALT018
-         ¦--param_description: 18 bis unter 19 Jahre	
-         ¦--param_description_en: 18 to under 19 Years
+         ¦--param_name: ST997
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe		
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
 ```
 
 
@@ -269,10 +273,13 @@ The variable `stat_description_full_en` includes a long English description of a
 
 --
 
+.seventyfive[
+
+
 ```{r, eval  = T, results='asis', echo=F}
 
 dg_descriptions %>% 
-  filter(stat_name == "BEVSTD") %>% 
+  filter(stat_name == "BEV008") %>% 
   slice(1) %>% 
   pull(stat_description_full_en) %>%
   cat()
@@ -281,61 +288,64 @@ dg_descriptions %>%
 
 
 
+]
 
 ---
 
 ### Metadata with `dg_descriptions`
 
-Next, there is the `substat_*` level. In the example, this substatistic holds all values for the population size from ages under 1 to 90.
+Next, there is the `substat_*` level. In the example, the substatistic splits new statistics by continent of origin (`STAKNW`).
 
 ```{r, eval  = F}
 
 stat level                  
- ¦--stat_name: BEVSTD
- ¦--stat_description: Bevölkerungsstand
- ¦--stat_description_en: Population Size	
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
- ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦--stat_name: BEV008
+ ¦--stat_description: Einbürgerungen von Ausländern	
+ ¦--stat_description_en: Naturalizations of Foreigners	
+ ¦--stat_description_full: ... 
+ ¦--stat_description_full_en: ...
  ¦
- °--substat level
-     ¦--substat_name: ALTX75 #<<
-     ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen) #<<
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups) #<<
+ °--substat level     #<<
+     ¦--substat_name: STAKNW     #<<
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)     #<<	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)	     #<<	
      ¦  
      °--param level       
-         ¦--param_name: ALT018
-         ¦--param_description: 18 bis unter 19 Jahre	
-         ¦--param_description_en: 18 to under 19 Years
+         ¦--param_name: ST997
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe		
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information
 ```
 
-Other possible examples of a substat for population size is the statistic split up by gender (`GES`) or nationality (`NAT`).
+Other possible examples of a substat for `BEV008` is the statistic split up by age groups (`ALTX04`) or Length of Stay (`AUFDA1`).
 
 ---
 
 ### Metadata with `dg_descriptions`
 
-Next, there is the `param_*` level. In the example, you can use this parameter to query individual age groups (for example 18 to 19).
+Next, there is the `param_*` level. In the example, we use `ST997` which queries new citizens who were "stateless" or have unknown origins.
 
 
 ```{r, eval  = F}
 
 stat level                  
- ¦--stat_name: BEVSTD
- ¦--stat_description: Bevölkerungsstand
- ¦--stat_description_en: Population Size	
- ¦--stat_description_full: Bevölkerungsstand aus GENESIS.. 
- ¦--stat_description_full_en: Population Size from GENESIS..
+ ¦--stat_name: BEV008
+ ¦--stat_description: Einbürgerungen von Ausländern	
+ ¦--stat_description_en: Naturalizations of Foreigners	
+ ¦--stat_description_full: ... 
+ ¦--stat_description_full_en: ...
  ¦
- °--substat level
-     ¦--substat_name: ALTX75
-     ¦--substat_description: Altersjahre (unter 1 bis 90, Altersgruppen)
-     ¦--substat_description_en: Age Years (under 1 to 90, Age Groups)
+ °--substat level     
+     ¦--substat_name: STAKNW    
+     ¦--substat_description: Kontinente (einschl. staatenlos etc.)    	
+     ¦--substat_description_en: Continents (Including Stateless Etc.)	    	
      ¦  
-     °--param level       
-        ¦--param_name: ALT018}} #<<
-        ¦--param_description: 18 bis unter 19 Jahre	#<<
-        ¦--param_description_en: 18 to under 19 Years}} #<<
+     °--param level       #<<
+         ¦--param_name: ST997    #<<
+         ¦--param_description: Staatenlos, unbekannt, ungeklärt, ohne Angabe	 #<<	
+         ¦--param_description_en: Stateless, Unknown, Unsettled, without Information #<<
 ```
+
+
 
 
 ---
@@ -404,28 +414,28 @@ class: center, middle, inverse
 
 ### How to use `dg_call`
 
-Main arguments of `dg_call`
+Main arguments of `dg_call`:
+
+<br>
 
 ```{r, paged.print = F, results='asis', echo = F}
 stats_vars <- c("region_id",
-"stat_name",
-"substat_name",
-"parameter",
-"year",
-"nuts_nr",
-"lau_nr",
-"full_descriptions",
-"long_format")
+                "stat_name",
+                "substat_name",
+                "parameter",
+                "year",
+                "nuts_nr",
+                "lau_nr",
+                "full_descriptions")
 
 desc <- c("The ID of a specific region", 
   "Main statistic",
-  "Sub-statistic<br>Defaults to all", 
+  "Sub-statistic", 
   "Parameter<br>Defaults to all",
   "Year(s)", 
   "NUTS level", 
   "LAU level",
-  "Full descriptions<br>Defaults to `FALSE`",
-  "Long format<br>Defaults to `FALSE`.")
+  "Full descriptions<br>Defaults to `FALSE`")
 
 
 tibble::tibble(arguments = stats_vars, description = desc) %>% htmlTable::htmlTable(rnames = F)
@@ -437,15 +447,142 @@ tibble::tibble(arguments = stats_vars, description = desc) %>% htmlTable::htmlTa
 
 ### How to use `dg_call`
 
-
- - **Statistic:** AI0506 *(Voter Turnout, Federal Election)*
-
 ```{r, paged.print = T, results='asis'}
-dg_call(region_id = "11",
-        year = 2002,
-        stat_name = "AI0506") 
+dg_call(nuts_nr = 1,             # NUTS-1    
+        year = 2017,             # Specify Year  
+        stat_name = "BEV008",    # Stats on New Citizens  
+        substat_name = "STAKNW", # By Continent  
+        parameter = "GESAMT")    # All categories summed   
 ```
 
+---
+
+### How to use `dg_call`
+
+```{r, eval  = F}
+
+dg_call(nuts_nr = 1,                  # NUTS-1 #<<
+        year = 2017,                  # Specify Year  #<<
+        stat_name = "BEV008",         # Stats on New Citizens        #<<
+        substat_name = "STAKNW") %>%  # By Continent  #<<
+  filter(STAKNW != "GESAMT") %>% 
+  group_by(param_description_en) %>% 
+  summarise(value = sum(value)) %>% 
+  mutate(param_description_en = ifelse(
+    str_detect(param_description_en, "Stateless"), "Stateless", param_description_en
+    )
+  ) %>% 
+  mutate(param_description_en = fct_reorder(param_description_en, value)) %>% 
+  ggplot(aes(param_description_en, value)) +
+  geom_col(fill = "darkblue", alpha = .75) +
+  geom_label(aes(label = value)) +
+  theme_minimal() +
+  labs(x = "", y = "Number of New Citizens\n", 
+       title = "New German Citizens by Origin Continent (2017)",
+       caption = "Source: Einbürgerungsstatistik") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 70000)) 
+```
+
+---
+
+### How to use `dg_call`
+
+```{r, eval  = T, echo = F, width = 10, height = 15,out.width=600, out.height=500, fig.align="center"}
+
+dg_call(nuts_nr = "1", #<<
+        year = 2017,   #<<
+        stat_name = "BEV008",  #<<
+        substat_name = "STAKNW") %>% #<<
+  filter(STAKNW != "GESAMT") %>% 
+  group_by(param_description_en) %>% 
+  summarise(value = sum(value)) %>% 
+  mutate(param_description_en = ifelse(
+    str_detect(param_description_en, "Stateless"), "Stateless", param_description_en
+    )
+  ) %>% 
+  mutate(param_description_en = fct_reorder(param_description_en, value)) %>% 
+  ggplot(aes(param_description_en, value)) +
+  geom_col(fill = "darkblue", alpha = .75) +
+  geom_label(aes(label = value)) +
+  theme_minimal() +
+  labs(x = "", y = "Number of New Citizens\n", 
+       title = "New German Citizens by Origin Continent (2017)",
+       caption = "Source: Einbürgerungsstatistik") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, 70000)) 
+```
+
+---
+
+
+### How to use `dg_map`
+
+```{r, eval = F}
+dg_map(nuts_nr = 1,               #<<
+        year = 2017,              #<< 
+        stat_name = "AI0506")  +  #<<
+  ggthemes::theme_map() +
+  ggplot2::scale_fill_viridis_c("Voter Turnout") +
+  ggplot2::ggtitle("Voter Turnout in German Parliamentary Election (2017)") +
+  ggplot2::theme(legend.position = "right")
+
+```
+
+---
+
+### How to use `dg_map`
+
+```{r, eval = T, echo = F, fig.align='center'}
+dg_map(nuts_nr = 1,  #<<
+        year = 2017, #<< # 
+        stat_name = "AI0506")  +  #<<
+  ggthemes::theme_map() +
+  ggplot2::scale_fill_viridis_c("Voter Turnout") +
+  ggplot2::ggtitle("Voter Turnout in German Parliamentary Election (2017)") +
+  ggplot2::theme(legend.position = "right")
+
+```
+
+
+---
+
+class: center, middle
+
+
+## More Maps!
+
+---
+
+class: center
+
+![](images/dedomains.gif)
+
+---
+
+
+class: center
+
+![](images/sustainableheat_map.png)
+
+---
+
+## Hackathon Instructions
+
+You can fork/download this [GitHub repository](https://github.com/favstats/dg_workshop_berlinR), which includes the slides and some example code.
+
+You can also use *Rstudio Cloud*. We set up a "classroom" with all necessary packages pre-installed. Here is the invite link:
+
+
+Feel free to play around with the data.
+
+---
+
+class: center, middle, inverse
+
+### Submissions from Previous Workshop
+
+![](https://raw.githubusercontent.com/TripLLL/weRnuts3/master/trash_emoji.gif)
+
+Click [here](https://github.com/TripLLL/weRnuts3) for GitHub repository
 
 ---
 
