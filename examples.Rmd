@@ -1,0 +1,207 @@
+---
+output: html_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# datenguideR <img src='images/logo3.png' align="right" height="139" />
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4,
+  out.width = "100%"
+)
+
+## install the following packages:
+# devtools::install_github("CorrelAid/datenguideR")
+if(!require("pacman")) install.packages("pacman")
+
+
+pacman::p_load(tidyverse, ggplot2, ggthemes, knitr, datenguideR)
+```
+
+
+Access and download German regional statistics from Datenguide <http://datengui.de>. `datenguideR` provides a wrapper for their GraphQL API and also includes metadata for all available statistics and regions.
+
+
+## Usage
+
+First, install datenguideR from GitHub:
+
+```{r, eval=F}
+devtools::install_github("CorrelAid/datenguideR")
+```
+
+Load package:
+
+```{r}
+library(datenguideR)
+```
+
+
+## Examples
+
+Get IDs of all available NUTS-1 regions:
+
+```{r}
+datenguideR::dg_regions %>%
+  dplyr::filter(level == "nuts1") %>%
+  knitr::kable()
+```
+
+Get all available meta data on statistics, substatistics, and parameters:
+
+```{r}
+datenguideR::dg_descriptions
+```
+
+### `dg_search`
+
+You can also use `dg_search` to look for a variable of interest. The function will match your string with any strings in the `dg_descriptions` data frame, returning only rows with those matches.
+
+Looking for variables where the string *"vote"* appears somewhere in the documentation:
+
+```{r}
+dg_search("vote")
+```
+
+Note: Descriptions of variables are also available in English now! Translated via the [`googleLanguageR`](https://github.com/ropensci/googleLanguageR) package.
+
+```{r}
+dg_search("vote") %>% 
+  dplyr::select(stat_name, dplyr::contains("_en"))
+```
+
+### `dg_call`
+
+The main function of the package is `dg_call`. It gives access to all API endpoints.
+
+Simply pick a statistic and put it into `dg_call()` (infos can be retrieved from `dg_descriptions`).
+
+For example:
+
+ - `stat_name`: AI0506 *(Wahlbeteiligung, Bundestagswahl)*
+ - `region_id`: 11 (stands for Berlin)
+
+```{r}
+dg_call(region_id = "11",
+        year = 2017,
+        stat_name = "AI0506")
+
+
+
+```
+
+
+
+A slightly more complex call with substatistics:
+
+  - `stat_name`: BETR08 *(Landwirtschaftliche Betriebe mit Tierhaltung)*
+  - `substat_name`: TIERA8 *(Landwirtschaftliche Betriebe mit Viehhaltung)*
+  - `parameter`:
+    - TIERART2 *(Rinder)*
+    - TIERART3 *(Schweine)*
+    
+```{r}
+
+dg_call(region_id = "11", 
+        year = c(2001, 2003, 2007), 
+        stat_name = "BETR08", 
+        substat_name = "TIERA8", 
+        parameter = c("TIERART2", "TIERART3")) 
+```
+
+If you give no parameters for a substat, it will default to return results for all of them.
+
+```{r}
+dg_call(region_id = "11", 
+        year = c(2001, 2003, 2007), 
+        stat_name =  "BETR08", 
+        substat_name = "TIERA8") 
+```
+
+
+### Multiple regions with `nuts_nr` or `lau_nr`
+
+Instead of specifying a `region_id` for individual Bundesland (state) data you can also use `nuts_nr` to receive data for *NUTS-1*, *NUTS-2* and *NUTS-3*.
+
+Just leave `region_id` blank and provide either a `nuts_nr` (or `lau_nr`) to get data for multiple regions at once.
+
+ - `stat_name`: AI0506 *(Wahlbeteiligung, Bundestagswahl)*
+
+```{r}
+dg_call(nuts_nr = 1,
+        year = 2017,
+        stat_name = "AI0506")
+
+
+
+```
+
+  - `stat_name`: BETR08 *(Landwirtschaftliche Betriebe mit Tierhaltung)*
+  - `substat_name`: TIERA8 *(Landwirtschaftliche Betriebe mit Viehhaltung)*
+
+```{r}
+dg_call(nuts_nr = 1,
+        year = c(2001, 2003, 2007), 
+        stat_name = "BETR08", 
+        substat_name = "TIERA8") 
+```
+
+  - `stat_name`: BAU018 *Total non-residential buildings*
+  - `substat_name`: BAUAHZ *Main Type of Heating*
+
+	
+ 
+
+```{r}
+dg_call(nuts_nr = 1,
+        stat_name =  "BAU018",
+        substat_name = "BAUAHZ",
+        year = 2016)
+```
+
+
+
+### `dg_map`
+
+You can also use `dg_map` to plot retrieved data on a Germany map. This currently only supports NUTS-1 and NUTS-2. Arguments are (mostly) identical to `dg_call`.
+
+
+```{r}
+dg_map(nuts_nr = 1,
+        year = 2017,
+        stat_name = "AI0506")
+
+```
+
+The output is a ggplot object and can be manipulated further.
+
+```{r}
+dg_map(nuts_nr = 1,
+        year = 2017,
+        stat_name = "AI0506") +
+  ggthemes::theme_map() +
+  ggplot2::scale_fill_viridis_c("Voter Turnout") +
+  ggplot2::ggtitle("Voter Turnout in German Parliamentary Election (2017)") +
+  ggplot2::theme(legend.position = "right")
+
+```
+
+You can also return the data and use your own plotting functions with `return_data = TRUE`.
+
+```{r}
+turnout_dat <- dg_map(nuts_nr = 1,
+        year = 2017,
+        stat_name = "AI0506",
+        return_data = T)
+
+turnout_dat
+
+```
+
+
+
