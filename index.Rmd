@@ -1,7 +1,7 @@
 ---
 title: "<br>Hacking Germany's Official Statistics with datenguideR"
 subtitle: ""
-author: '<br>Lisa Hehnke <br>  <a href="https://twitter.com/dataplanes"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@dataplanes</a> <br>Fabio Votta <br>  <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@favstats</a> <br>Vroni Grupp <br>  <a href="https://twitter.com/vgeodata"> <i class="fa fa-twitter fa-fw"></i>&nbsp;@vgeodata</a> <br><br> Slides available at: <br><a href="https://dg-berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp; dg-berlinR.netlify.com</a> <br><br>2020-02-05'
+author: 'Lisa Hehnke <br> <a href="https://twitter.com/dataplanes"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@dataplanes</font></a> <br><br> Fabio Votta <br>  <a href="https://twitter.com/favstats"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@favstats</font></a> <br><br>Vroni Grupp <br><a href="https://twitter.com/vgeodata"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@vgeodata</font></a> <br><br> Slides available at: <br><a href="https://dg-berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp; dg-berlinR.netlify.com</a> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-02-05'
 output: 
   xaringan::moon_reader:
     df_print: paged
@@ -62,10 +62,31 @@ if(!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, datenguideR, knitr,)
 
 #Default Options - kann bei Gebrauch geändert werden
-knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
-
+knitr::opts_chunk$set(warning = F, message = F, fig.align="center") 
 
 ```
+
+
+
+### What's ahead?
+
+
+1. Introduction to the datenguideR *infrastructure*
+
+2. Main functions of datenguideR and examples (`dg_call`)
+
+3. Plotting function (`dg_map`)
+
+4. Hackathon!
+
+--
+
+
+![](https://media.giphy.com/media/Lm62AlSEQqhimpM59W/giphy.gif)
+
+
+
+---
 
 
 .pull-left[
@@ -73,7 +94,7 @@ knitr::opts_chunk$set(warning = F, message = F) # Whether to display errors
 
 ### How to `datenguideR`
 
-The `rOpenSci Package guide` states that:
+First install `datenguideR` from GitHub (not yet on CRAN)
 
 ]
 
@@ -83,26 +104,27 @@ The `rOpenSci Package guide` states that:
 
 ```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
 knitr::include_graphics("images/logo3.png")
-
-
-
 ```
 
 ]
 
-> Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+
+```{r, eval = F}
+devtools::install_github("CorrelAid/datenguideR")
+```
+
+--
+
+![](images/not_a_trap.png)
+
+---
+
+class: center, middle, inverse
+
+### Admiral Ackbar says
 
 
-So in the best case scenario you come up with a naming scheme in the following style:
-
-+ `object_verb`
-
-This scheme 
-
-+ helps avoid namespace conflicts with packages that may have similar verbs
-+ makes code readable and easy to auto-complete
-
-In `datenguideR` all functions start with `dg_*`, for example `dg_call`, `dg_descriptions` etc.
+![](https://media1.tenor.com/images/ead2e2345aba59ac4c09a1990c35afdd/tenor.gif?itemid=8125029)
 
 
 
@@ -132,9 +154,62 @@ knitr::include_graphics("images/logo3.png")
 devtools::install_github("CorrelAid/datenguideR")
 ```
 
---
+
 
 ![](images/its_a_trap.png)
+
+---
+
+
+.pull-left[
+
+
+### How to `datenguideR`
+
+
+Functions start with `dg_*`
+
+
+
+]
+
+
+.pull-right[
+
+
+```{r, echo = F, out.width=100, out.height=120, fig.align='right'}
+knitr::include_graphics("images/logo3.png")
+
+
+
+```
+
+]
+
+--
+
+The `rOpenSci Package guide` states that:
+
+
+> Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+
+
+This `object_verb` scheme: 
+
++ helps avoid namespace conflicts with packages that may have similar verbs
++ makes code readable and easy to auto-complete
+
+--
+
+In the following we will learn about:
+
++ `dg_descriptions`: Meta data
++ `dg_search`: Search Meta data
++ `dg_call`: Make API Calls
++ `dg_map`: Plot Maps
+
+
+
 ---
 
 
@@ -395,7 +470,7 @@ dg_search("vote") %>%
 ### How to `datenguideR`
 
 
-Get IDs of all available NUTS-1 regions:
+Get Region IDs of all available NUTS-1 regions with `dg_regions`:
 
 ```{r, paged.print = TRUE}
 datenguideR::dg_regions %>%
@@ -457,6 +532,18 @@ tibble::tibble(arguments = stats_vars, description = desc) %>% htmlTable::htmlTa
 ### How to use `dg_call`
 
 ```{r, paged.print = T, results='asis'}
+dg_call(region_id = 11,          # 11 is Berlin (see dg_regions) 
+        year = 2017,             # Specify Year  
+        stat_name = "BEV008",    # Stats on New Citizens  
+        substat_name = "STAKNW", # By Continent  
+        parameter = "GESAMT")    # All categories summed   
+```
+
+---
+
+### How to use `dg_call`
+
+```{r, paged.print = T, results='asis'}
 dg_call(nuts_nr = 1,             # NUTS-1    
         year = 2017,             # Specify Year  
         stat_name = "BEV008",    # Stats on New Citizens  
@@ -477,10 +564,7 @@ dg_call(nuts_nr = 1,                  # NUTS-1 #<<
   filter(STAKNW != "GESAMT") %>% 
   group_by(param_description_en) %>% 
   summarise(value = sum(value)) %>% 
-  mutate(param_description_en = ifelse(
-    str_detect(param_description_en, "Stateless"), "Stateless", param_description_en
-    )
-  ) %>% 
+  mutate(param_description_en = ifelse(str_detect(param_description_en, "Stateless"), "Stateless", param_description_en)) %>% 
   mutate(param_description_en = fct_reorder(param_description_en, value)) %>% 
   ggplot(aes(param_description_en, value)) +
   geom_col(fill = "darkblue", alpha = .75) +
@@ -505,10 +589,7 @@ dg_call(nuts_nr = "1", #<<
   filter(STAKNW != "GESAMT") %>% 
   group_by(param_description_en) %>% 
   summarise(value = sum(value)) %>% 
-  mutate(param_description_en = ifelse(
-    str_detect(param_description_en, "Stateless"), "Stateless", param_description_en
-    )
-  ) %>% 
+  mutate(param_description_en = ifelse(str_detect(param_description_en, "Stateless"), "Stateless", param_description_en)) %>% 
   mutate(param_description_en = fct_reorder(param_description_en, value)) %>% 
   ggplot(aes(param_description_en, value)) +
   geom_col(fill = "darkblue", alpha = .75) +
@@ -592,13 +673,12 @@ xQ).
 
 In the end, you can present your dashboards, shiny apps, plots or analyses.
 
-The best submissions will be shared on Twitter and may receive some goodies (stickerzzzzz! <3)
+The best submissions will be shared on Twitter and may receive some goodies (stickers! `r emo::ji("heart")`)
 
 **Important:**
 
 If you encounter any bugs, please use our issue tracker on [GitHub](https://github.com/CorrelAid/datenguideR/issues).
 
-> Feel free to play around with the data as you wish!
 
 ---
 
@@ -643,6 +723,11 @@ challenges <- c("Environmental Protection / Sustainability", "Environmental Prot
 "Politics", "Politics", "Politics", "Politics", "Traffic", "Traffic",
 "Social Inequality", "Social Inequality", "Housing", "Housing", "Housing"
 )
+
+# dg_call(region_id = "11", stat_name = "WAHLSR") %>% 
+#   dplyr::distinct()
+# 
+# dg_call(region_id = "11", stat_name = "WAHLSR") 
 
 datenguideR::dg_descriptions %>% 
   dplyr::filter(stat_name %in% stat_names) %>% 

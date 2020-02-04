@@ -3,7 +3,7 @@
   <head>
     <title> Hacking Germany’s Official Statistics with datenguideR</title>
     <meta charset="utf-8" />
-    <meta name="author" content=" Lisa Hehnke     @dataplanes  Fabio Votta     @favstats  Vroni Grupp     @vgeodata    Slides available at:    dg-berlinR.netlify.com   2020-02-05" />
+    <meta name="author" content="Lisa Hehnke    @dataplanes    Fabio Votta    @favstats   Vroni Grupp   @vgeodata    Slides available at:    dg-berlinR.netlify.com                                                                                                                            2020-02-05" />
     <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
     <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
     <script src="https://use.fontawesome.com/5235085b15.js"></script>
@@ -14,7 +14,7 @@
 class: center, middle, inverse, title-slide
 
 # <br>Hacking Germany’s Official Statistics with datenguideR
-### <br>Lisa Hehnke <br> <a href="https://twitter.com/dataplanes"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@dataplanes</span></a> <br>Fabio Votta <br> <a href="https://twitter.com/favstats"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@favstats</span></a> <br>Vroni Grupp <br> <a href="https://twitter.com/vgeodata"> <i class="fa fa-twitter fa-fw"></i> <span class="citation">@vgeodata</span></a> <br><br> Slides available at: <br><a href="https://dg-berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>  dg-berlinR.netlify.com</a> <br><br>2020-02-05
+### Lisa Hehnke <br> <a href="https://twitter.com/dataplanes"><i class="fa fa-twitter fa-fw"></i> <font size="6"><span class="citation">@dataplanes</span></font></a> <br><br> Fabio Votta <br> <a href="https://twitter.com/favstats"><i class="fa fa-twitter fa-fw"></i> <font size="6"><span class="citation">@favstats</span></font></a> <br><br>Vroni Grupp <br><a href="https://twitter.com/vgeodata"><i class="fa fa-twitter fa-fw"></i> <font size="6"><span class="citation">@vgeodata</span></font></a> <br><br> Slides available at: <br><a href="https://dg-berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>  dg-berlinR.netlify.com</a> <br>                                                                                                                          2020-02-05
 
 ---
 
@@ -59,12 +59,34 @@ class: center, middle, inverse, title-slide
 
 
 
+
+### What's ahead?
+
+
+1. Introduction to the datenguideR *infrastructure*
+
+2. Main functions of datenguideR and examples (`dg_call`)
+
+3. Plotting function (`dg_map`)
+
+4. Hackathon!
+
+--
+
+
+![](https://media.giphy.com/media/Lm62AlSEQqhimpM59W/giphy.gif)
+
+
+
+---
+
+
 .pull-left[
 
 
 ### How to `datenguideR`
 
-The `rOpenSci Package guide` states that:
+First install `datenguideR` from GitHub (not yet on CRAN)
 
 ]
 
@@ -76,19 +98,24 @@ The `rOpenSci Package guide` states that:
 
 ]
 
-&gt; Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
 
 
-So in the best case scenario you come up with a naming scheme in the following style:
+```r
+devtools::install_github("CorrelAid/datenguideR")
+```
 
-+ `object_verb`
+--
 
-This scheme 
+![](images/not_a_trap.png)
 
-+ helps avoid namespace conflicts with packages that may have similar verbs
-+ makes code readable and easy to auto-complete
+---
 
-In `datenguideR` all functions start with `dg_*`, for example `dg_call`, `dg_descriptions` etc.
+class: center, middle, inverse
+
+### Admiral Ackbar says
+
+
+![](https://media1.tenor.com/images/ead2e2345aba59ac4c09a1990c35afdd/tenor.gif?itemid=8125029)
 
 
 
@@ -117,9 +144,57 @@ First install `datenguideR` from GitHub (not yet on CRAN)
 devtools::install_github("CorrelAid/datenguideR")
 ```
 
---
+
 
 ![](images/its_a_trap.png)
+
+---
+
+
+.pull-left[
+
+
+### How to `datenguideR`
+
+
+Functions start with `dg_*`
+
+
+
+]
+
+
+.pull-right[
+
+
+&lt;img src="images/logo3.png" width="100" height="120" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+]
+
+--
+
+The `rOpenSci Package guide` states that:
+
+
+&gt; Functions and arguments naming should be chosen to work together to form a common, logical programming API that is easy to read, and auto-complete.
+
+
+This `object_verb` scheme: 
+
++ helps avoid namespace conflicts with packages that may have similar verbs
++ makes code readable and easy to auto-complete
+
+--
+
+In the following we will learn about:
+
++ `dg_descriptions`: Meta data
++ `dg_search`: Search Meta data
++ `dg_call`: Make API Calls
++ `dg_map`: Plot Maps
+
+
+
 ---
 
 
@@ -417,7 +492,7 @@ dg_search("vote")
 ### How to `datenguideR`
 
 
-Get IDs of all available NUTS-1 regions:
+Get Region IDs of all available NUTS-1 regions with `dg_regions`:
 
 
 ```r
@@ -507,6 +582,25 @@ Main arguments of `dg_call`:
 
 
 ```r
+dg_call(region_id = 11,          # 11 is Berlin (see dg_regions) 
+        year = 2017,             # Specify Year  
+        stat_name = "BEV008",    # Stats on New Citizens  
+        substat_name = "STAKNW", # By Continent  
+        parameter = "GESAMT")    # All categories summed   
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["int"],"align":["right"]},{"label":["STAKNW"],"name":[4],"type":["chr"],"align":["left"]},{"label":["value"],"name":[5],"type":["int"],"align":["right"]},{"label":["GENESIS_source"],"name":[6],"type":["chr"],"align":["left"]},{"label":["GENESIS_source_nr"],"name":[7],"type":["chr"],"align":["left"]},{"label":["stat_name"],"name":[8],"type":["chr"],"align":["left"]},{"label":["stat_description"],"name":[9],"type":["chr"],"align":["left"]},{"label":["substat_name"],"name":[10],"type":["chr"],"align":["left"]},{"label":["substat_description"],"name":[11],"type":["chr"],"align":["left"]},{"label":["param_description"],"name":[12],"type":["chr"],"align":["left"]},{"label":["stat_description_en"],"name":[13],"type":["chr"],"align":["left"]},{"label":["substat_description_en"],"name":[14],"type":["chr"],"align":["left"]},{"label":["param_description_en"],"name":[15],"type":["chr"],"align":["left"]}],"data":[{"1":"11","2":"Berlin","3":"2017","4":"GESAMT","5":"6479","6":"Einbürgerungsstatistik","7":"12511","8":"BEV008","9":"Einbürgerungen von Ausländern","10":"STAKNW","11":"Kontinente (einschl. staatenlos etc.)","12":"Gesamt","13":"Naturalizations of Foreigners","14":"Continents (Including Stateless Etc.)","15":"Total"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+---
+
+### How to use `dg_call`
+
+
+```r
 dg_call(nuts_nr = 1,             # NUTS-1    
         year = 2017,             # Specify Year  
         stat_name = "BEV008",    # Stats on New Citizens  
@@ -533,10 +627,7 @@ dg_call(nuts_nr = 1,             # NUTS-1
   filter(STAKNW != "GESAMT") %&gt;% 
   group_by(param_description_en) %&gt;% 
   summarise(value = sum(value)) %&gt;% 
-  mutate(param_description_en = ifelse(
-    str_detect(param_description_en, "Stateless"), "Stateless", param_description_en
-    )
-  ) %&gt;% 
+  mutate(param_description_en = ifelse(str_detect(param_description_en, "Stateless"), "Stateless", param_description_en)) %&gt;% 
   mutate(param_description_en = fct_reorder(param_description_en, value)) %&gt;% 
   ggplot(aes(param_description_en, value)) +
   geom_col(fill = "darkblue", alpha = .75) +
@@ -552,7 +643,7 @@ dg_call(nuts_nr = 1,             # NUTS-1
 
 ### How to use `dg_call`
 
-&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="600" height="500" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" width="600" height="500" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -574,7 +665,7 @@ dg_call(nuts_nr = 1,             # NUTS-1
 
 ### How to use `dg_map`
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -613,13 +704,12 @@ xQ).
 
 In the end, you can present your dashboards, shiny apps, plots or analyses.
 
-The best submissions will be shared on Twitter and may receive some goodies (stickerzzzzz! &lt;3)
+The best submissions will be shared on Twitter and may receive some goodies (stickers! ❤️)
 
 **Important:**
 
 If you encounter any bugs, please use our issue tracker on [GitHub](https://github.com/CorrelAid/datenguideR/issues).
 
-&gt; Feel free to play around with the data as you wish!
 
 ---
 
