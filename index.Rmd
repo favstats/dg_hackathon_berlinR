@@ -673,7 +673,7 @@ xQ).
 
 In the end, you can present your dashboards, shiny apps, plots or analyses.
 
-The best submissions will be shared on Twitter and may receive some goodies (stickers! `r emo::ji("heart")`)
+The best submissions will be shared on Twitter (if they want to of course!)
 
 **Important:**
 
