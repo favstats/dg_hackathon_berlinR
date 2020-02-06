@@ -1,7 +1,7 @@
 ---
 title: "<br>Hacking Germany's Official Statistics with datenguideR"
 subtitle: ""
-author: 'Lisa Hehnke <br> <a href="https://twitter.com/dataplanes"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@dataplanes</font></a> <br><br> Fabio Votta <br>  <a href="https://twitter.com/favstats"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@favstats</font></a> <br><br>Vroni Grupp <br><a href="https://twitter.com/vgeodata"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@vgeodata</font></a> <br><br> Slides available at: <br><a href="https://dg-berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp; dg-berlinR.netlify.com</a> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-02-05'
+author: 'Lisa Hehnke <br> <a href="https://twitter.com/dataplanes"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@DataPlanes</font></a> <br><br> Fabio Votta <br>  <a href="https://twitter.com/favstats"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@favstats</font></a> <br><br>Vroni Grupp <br><a href="https://twitter.com/vgeodata"><i class="fa fa-twitter fa-fw"></i>&nbsp;<font size="6">@vgeodata</font></a> <br><br> Slides available at: <br><a href="https://dg-berlinR.netlify.com"/><i class="fa fa-paper-plane fa-fw"></i>&nbsp; dg-berlinR.netlify.com</a> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2020-02-05'
 output: 
   xaringan::moon_reader:
     df_print: paged
@@ -673,7 +673,7 @@ xQ).
 
 In the end, you can present your dashboards, shiny apps, plots or analyses.
 
-The best submissions will be shared on Twitter (if they want to of course!)
+The best submissions will be shared on Twitter (if they want to of course!:)
 
 **Important:**
 
